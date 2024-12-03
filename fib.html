@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ciągi liczbowe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="baner1">
+      <h2>Poznaj Ciągi Liczbowe</h2>
+    </div>
+    <div id="baner2">
+      <a href="liczby.html"><h5>Ciągi arytmetyczne</h5></a>
+    </div>
+    <div id="baner3">
+      <a href="fib.html"><h5>Ciąg Fibonacciego</h5></a>
+    </div>
+    <div id="baner4">
+      <img src="obraz1.png" alt="Fibonacci" />
+    </div>
+    <div id="lewy">
+      <ol>
+        <li>ciągi arytmetyczne</li>
+        <li>ciągi geometryczne</li>
+        <li>ciąg Fibonacciego</li>
+      </ol>
+    </div>
+    <div id="prawy">
+      <!-- miejsce na kod html -->
+      <select name="wypPrawy" id="prawySelect">
+        <option value="brak">-</option>
+        <option value="fibonacci">fib</option>
+        <option value="geormetryczny">geom</option>
+        <option value="artymetyczny">artym</option>
+      </select>
+    </div>
+    <div id="stopka">
+      <p>0000000000</p>
+    </div>
+
+    <script>
+      // function ciagAretmetyczny(a, r, n) {
+      //   var wynik_aryt = []
+      // }
+      // function ciagFibonaciego(n) {
+      //   if (i = 2){
+      //     fn_1 = 1;
+      //     fn_2 = 0
+      //   }
+      // }
+      // function ciagGeometryczny(licz_pocz,przez_co_mnoz,ile_razy_mnoz) {
+      //   var wynik_geometr = []
+      //   for (let i = 0; i < ile_razy_mnoz;i++) {
+      //     wynik_aryt.push(licz_pocz * (przez_co_mnoz ** ile_razy_mnoz))
+
+      //   }
+      // }
+      function displayForm(content) {
+        document.getElementById("formularz").innerHTML = content;
+      }
+
+      function generuj_ar() {
+        let a = Number(document.getElementById("a").value);
+        let r = Number(document.querySelector("#r").value);
+        let n = Number(document.querySelector("#n").value);
+        let resultText = document.querySelector("#wynik");
+
+        let result = "ciag arytmetyczny zawiera wyrazy:";
+        for (; n; n--) {
+          result += a + ",";
+          a += r;
+        }
+        resultText.innerHTML = result;
+      }
+      function generuj_ge() {
+        let a = Number(document.getElementById("a").value);
+        let q = Number(document.querySelector("#q").value);
+        let n = Number(document.querySelector("#n").value);
+        let resultText = document.querySelector("#wynik");
+
+        let result = "ciag arytmetyczny zawiera wyrazy:";
+        for (; n; n--) {
+          result += a + ",";
+          a = a * q;
+        }
+        resultText.innerHTML = result;
+      }
+
+      function generuj_fi() {
+        let a = Number(document.getElementById("a").value);
+        let r = Number(document.querySelector("#r").value);
+        let n = Number(document.querySelector("#n").value);
+        let resultText = document.querySelector("#wynik");
+
+        C = r * n;
+        n = a + C;
+        req_index = [];
+        show_user = [];
+        for (; n; n++) {
+          req_index.push(a + r - 1);
+        }
+        function ciagFibonaciego(x) {
+          var wynik_fib = [0, 1];
+          for (let i = 2; i < x; i++) {
+            wynik_fib.push(wynik_fib[i - 1] + wynik_fib[i - 2]);
+          }
+          return wynik_fib;
+          req_length = req_index.length;
+          for (i = 0; i > req_length; i++) {
+            value = wynik_fib[req_index[i]];
+            show_user.push(value);
+          }
+          resultText.innerHTML = show_user;
+        }
+      }
+      const form = document.getElementById("typy_ci");
+      const ciagi = () => {
+        var value = form.value;
+        var text = form.options[form.selectedIndex].text;
+        console.log(value);
+        var htmlContent = "";
+        if (value == "aryt") {
+          var htmlContent = `
+          <form id="aryt">
+          <h2>Generowanie ciągu arytmetycznego</h2>
+          <label>
+        Pierwszy wyraz A:
+        <input type="number" id="a" min="1" /><br />
+          </label>
+          <label>
+        Różnica ciągu R:
+        <input type="number" id="r" min="1" /><br />
+          </label>
+          <label>
+        Liczba wyrazów w ciągu N:
+        <input type="number" id="n" min="1" /><br />
+          </label>
+          <button type="button" onclick="generuj_ar()"">Generuj Ciąg</button>
+          <p id="wynik"></p>
+         </form>`;
+          displayForm(htmlContent);
+        } else if (value == "geom") {
+          var htmlContent = `
+          <form id="geom">
+          <h2>Generowanie ciągu geometrycznego</h2>
+          <label>
+        Pierwszy wyraz A:
+          <input type="number" id="a" min="1" /><br />
+          </label>
+          <label>
+        Różnica ciągu Q:
+        <input type="number" id="q" min="1" /><br />
+        </label>
+        <label>
+        Liczba wyrazów w ciągu N:
+        <input type="number" id="n" min="1" /><br />
+        </label>
+        <button type="button" onclick="generuj_ge()">Generuj Ciąg</button>
+        <p id="wynik"></p>
+        </form>`;
+          displayForm(htmlContent);
+        } else if (value == "fibo") {
+          var htmlContent = `
+        <form id="fibo">
+        <h2>Generowanie ciągu Fibbonaciego</h2>
+        <label>
+        Pierwszy wyraz A:
+        <input type="number" id="a" min="1" /><br />
+        </label>
+        <label>
+        Różnica ciągu R:
+        <input type="number" id="r" min="1" /><br />
+        </label>
+        <label>
+        Liczba wyrazów w ciągu N:
+        <input type="number" id="n" min="1" /><br />
+        </label>
+      <button type="button" onclick="generuj_fi()">Generuj Ciąg</button>
+      <p id="wynik"></p>
+      </form>`;
+          displayForm(htmlContent);
+        } else if (value == "nic") {
+          var htmlContent = "";
+          displayForm(htmlContent);
+        }
+      };
+
+      form.onchange = ciagi;
+    </script>
+  </body>
+</html>
